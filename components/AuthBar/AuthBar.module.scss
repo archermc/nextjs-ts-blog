@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+  margin: auto;
+
+  border-bottom: 1px solid lightgray;
+}
+
+.barGap {
+  gap: 10;
+}
