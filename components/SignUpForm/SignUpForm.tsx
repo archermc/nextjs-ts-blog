@@ -1,6 +1,7 @@
 import { Button, Group, PasswordInput, TextInput, Text, Anchor } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { At, Lock } from 'tabler-icons-react';
+import { passwordRegex } from "../../utils/regex";
 
 type FormValues = {
   email: string;
@@ -24,8 +25,7 @@ export const SignUpForm = ({ initialValues, onSubmit, toSignIn, error }: SignUpF
     },
     
     validate: {
-      // /[^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
-      password: (value) => (/[a-zA-Z+]/.test(value) ? null :
+      password: (value) => (passwordRegex.test(value) ? null :
         "Password must be at least 8 characters and contain at least 1 letter, 1 number, and 1 special character")
     }
   });

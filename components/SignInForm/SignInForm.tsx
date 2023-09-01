@@ -1,6 +1,7 @@
 import { Anchor, Button, Group, PasswordInput, TextInput, Text } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { At, Lock } from "tabler-icons-react";
+import { emailRegex } from "../../utils/regex";
 
 type FormValues = {
   email: string;
@@ -11,10 +12,11 @@ type SignInFormProps = {
   initialValues?: FormValues;
   onSubmit: (val: FormValues) => void;
   toSignUp: () => void;
+  error?: string;
 }
 
 export const SignInForm = (
-  { initialValues, onSubmit, toSignUp }: SignInFormProps) => {
+  { initialValues, onSubmit, toSignUp, error }: SignInFormProps) => {
   const form = useForm({
     initialValues: {
       email: initialValues?.email || "",
@@ -22,7 +24,7 @@ export const SignInForm = (
     },
 
     validate: {
-      email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+      email: (value) => (emailRegex.test(value) ? null : 'Invalid email'),
     }
   });
 
@@ -41,9 +43,10 @@ export const SignInForm = (
         {...form.getInputProps("password")}
         icon={<Lock size={14} />}
       />
+      <Text color="red" size="sm" style={{ display: error ? "inherit" : "hidden" }}>{error}</Text>
       <Group mt="md" position="apart">
         <Text onClick={() => toSignUp()}>
-          <Anchor color="gray">Need to make an account? Register</Anchor>
+          <Anchor color="#666">Need to make an account? Register</Anchor>
         </Text>
         <Button type="submit">Log In</Button>
       </Group>
